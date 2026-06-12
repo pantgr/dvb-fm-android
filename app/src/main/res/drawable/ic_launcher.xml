@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Επίγεια TV — ρετρό τηλεόραση με κεραία -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- φόντο -->
+    <path
+        android:fillColor="#0D1B2A"
+        android:pathData="M0,0h108v108h-108z" />
+
+    <!-- κεραία V -->
+    <path
+        android:strokeColor="#B0BEC5"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M54,40L32,14" />
+    <path
+        android:strokeColor="#B0BEC5"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M54,40L76,14" />
+    <path
+        android:fillColor="#B0BEC5"
+        android:pathData="M32,14m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+    <path
+        android:fillColor="#B0BEC5"
+        android:pathData="M76,14m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+
+    <!-- σώμα TV -->
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M18,40h72a8,8 0 0 1 8,8v36a8,8 0 0 1 -8,8h-72a8,8 0 0 1 -8,-8v-36a8,8 0 0 1 8,-8z" />
+
+    <!-- πράσινη οθόνη (το χρώμα του status μας) -->
+    <path
+        android:fillColor="#00C853"
+        android:pathData="M22,48h64a4,4 0 0 1 4,4v28a4,4 0 0 1 -4,4h-64a4,4 0 0 1 -4,-4v-28a4,4 0 0 1 4,-4z" />
+
+    <!-- γυαλάδα -->
+    <path
+        android:fillColor="#33FFFFFF"
+        android:pathData="M22,48L50,48L30,84L22,84z" />
+</vector>

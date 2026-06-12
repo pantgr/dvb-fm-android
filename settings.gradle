@@ -1,0 +1,29 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "DvbTvAndroid"
+
+include ':app'
+
+// vendored AndroidDvbDriver modules (GPL) — see AndroidDvbDriver/ clone
+include ':drivers'
+include ':usbxfer'
+project(':drivers').projectDir = file('AndroidDvbDriver/drivers')
+project(':usbxfer').projectDir = file('AndroidDvbDriver/usbxfer')
+
+// vendored rtl_tcp_andro modules (GPL) — SDR mode για FM radio
+include ':rtlsdr'
+include ':sdrdrivertools'
+project(':rtlsdr').projectDir = file('rtl_tcp_andro/rtlsdr')
+project(':sdrdrivertools').projectDir = file('rtl_tcp_andro/sdrdrivertools')

@@ -1,0 +1,35 @@
+# Build artifacts
+.gradle/
+**/build/
+**/.cxx/
+.idea/
+*.iml
+local.properties
+*.apk
+
+# Local backups & forensics (large, machine-specific)
+backups/
+logcat_*.txt
+gitstage.txt
+
+# Signal captures & offline analysis artifacts (large binaries)
+*.bin
+*.s16
+*.f32
+*.raw
+*.wav
+*.iq
+/*.png
+
+# Copyrighted standards/datasheet PDFs (not redistributable)
+*.pdf
+
+# Local research notes & knowledge base (internal references)
+SKILL.md
+STEREO_BLEND_DESIGN.md
+sdrangel_afc_study/
+rtl_tools/
+
+# Python research/simulation tooling (dev instruments, not part of the app —
+# may be published separately once cleaned up)
+*.py

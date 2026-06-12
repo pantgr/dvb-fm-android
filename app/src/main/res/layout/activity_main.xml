@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/leftPanel"
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnScan"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Scan" />
+
+                <Button
+                    android:id="@+id/btnFm"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="FM" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#00FF00"
+                android:typeface="monospace"
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:text="no channels — Scan" />
+
+            <ListView
+                android:id="@+id/channelList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <org.videolan.libvlc.util.VLCVideoLayout
+            android:id="@+id/videoLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <!-- FM radio mode — v25 VINTAGE DOT-MATRIX (επιλογή Pantelis 12/6):
+         άμπερ «display windows» σαν 90s Becker/Blaupunkt, STEREO κόκκινο
+         λαμπάκι / mono πράσινο (v5 σύμβαση), signal ως bargraphs. -->
+    <LinearLayout
+        android:id="@+id/radioPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <!-- Row 1: συχνότητα + PS, δύο «τζάμια» -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/radioFreq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFB300"
+                android:textSize="64sp"
+                android:textStyle="bold"
+                android:typeface="monospace"
+                android:background="@drawable/display_window"
+                android:paddingLeft="28dp"
+                android:paddingRight="28dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="10dp"
+                android:text="98.0" />
+
+            <Space
+                android:layout_width="28dp"
+                android:layout_height="1dp" />
+
+            <!-- PS = 8-char frame display (NRSC-G300-C §6.9 — το καρέ όπως
+                 το στέλνει ο encoder, καμία συναρμολόγηση) -->
+            <TextView
+                android:id="@+id/radioPs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFC233"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                android:typeface="monospace"
+                android:letterSpacing="0.15"
+                android:background="@drawable/display_window"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:minEms="8"
+                android:gravity="center"
+                android:text="" />
+        </LinearLayout>
+
+        <!-- Row 2: stereo lamp (κόκκινο) / mono (πράσινο) + ρολόι CT -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:id="@+id/radioSt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#00C853"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="" />
+
+            <Space
+                android:layout_width="48dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/radioCt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#CC9333"
+                android:textSize="18sp"
+                android:typeface="monospace"
+                android:text="" />
+        </LinearLayout>
+
+        <!-- Row 3: bargraphs (b102 signal status, dot-matrix έκδοση) -->
+        <TextView
+            android:id="@+id/radioSig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CC9333"
+            android:textSize="15sp"
+            android:typeface="monospace"
+            android:paddingTop="6dp"
+            android:text="" />
+
+        <!-- RT+ (IEC 62106-6): Title/Artist quasi-static — «MP3-player feel» -->
+        <TextView
+            android:id="@+id/radioRtpTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF3E0"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:paddingTop="22dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/radioRtpArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#D7B97C"
+            android:textSize="19sp"
+            android:paddingTop="2dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="" />
+
+        <View
+            android:layout_width="520dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="#4A3A18" />
+
+        <TextView
+            android:id="@+id/radioRt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#B38A2E"
+            android:textSize="16sp"
+            android:typeface="monospace"
+            android:paddingTop="12dp"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#6B5526"
+            android:textSize="13sp"
+            android:paddingTop="22dp"
+            android:text="◀ ▶ 0.1 MHz   ▲ ▼ 1.0 MHz   CH± gain   Back: TV" />
+    </LinearLayout>
+
+    <!-- ένδειξη εναλλαγής υποτίτλων (MENU κουμπί) -->
+    <TextView
+        android:id="@+id/subOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_margin="28dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:background="#A6000000"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:text="" />
+
+    <!-- πληκτρολόγηση αριθμού καναλιού (πάνω δεξιά, σαν TV) -->
+    <TextView
+        android:id="@+id/numOverlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_margin="28dp"
+        android:textColor="#FFFFFF"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowRadius="8"
+        android:background="#80000000"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:visibility="gone"
+        android:text="" />
+
+    <!-- TV-style info banner (fullscreen overlay, auto-hide) -->
+    <LinearLayout
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:background="#D9000000"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/bannerTitle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/bannerSignal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#00FF00"
+                android:typeface="monospace"
+                android:textSize="13sp"
+                android:text="" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bannerNow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:paddingTop="6dp"
+            android:text="" />
+
+        <ProgressBar
+            android:id="@+id/bannerProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:max="100" />
+
+        <TextView
+            android:id="@+id/bannerNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#BBBBBB"
+            android:textSize="15sp"
+            android:paddingTop="2dp"
+            android:text="" />
+
+        <!-- 2ο OK: περιγραφή εκπομπής (EIT short+extended event text) -->
+        <TextView
+            android:id="@+id/bannerDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#DDDDDD"
+            android:textSize="15sp"
+            android:paddingTop="8dp"
+            android:maxLines="6"
+            android:ellipsize="end"
+            android:visibility="gone"
+            android:text="" />
+    </LinearLayout>
+</FrameLayout>
