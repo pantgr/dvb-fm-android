@@ -63,7 +63,25 @@ Note: DVB-T demodulation runs in the RTL2832's hardware (as designed); FM is
 true SDR — raw I/Q via rtl_tcp, all demodulation in Kotlin on the device
 (~1 core of a low-end TV box for FM + stereo + RDS).
 
-## Build
+## Install (prebuilt APK — no compiling needed)
+
+1. Download the latest `dvb-fm-android-*.apk` from
+   [Releases](https://github.com/pantgr/dvb-fm-android/releases)
+2. On the Android device allow **Install from unknown sources**
+   (Settings → Security, or per-app prompt on Android 8+)
+3. Install the APK — via file manager / USB stick, or from a PC:
+   `adb install dvb-fm-android-v1.0.apk`
+4. Plug the RTL2832U stick into the USB OTG port (TV boxes: any USB port,
+   ideally a powered hub) and open **Επίγεια TV**
+5. Grant the USB permission when Android asks
+6. **TV**: run a channel scan from the channel list (first start).
+   **FM**: press the FM button, tune with ◀ ▶ / ▲ ▼ or type the frequency
+   with the digit keys (e.g. `984` → 98.4 MHz)
+
+The APK is debug-signed (hobby project) — Play Protect may warn on first
+install; that is expected for any sideloaded debug build.
+
+## Build from source
 
 - JDK 17, Android SDK 34, NDK 26.1, CMake 3.22 (native usbxfer + librtlsdr)
 - Set `JAVA_HOME` (or `org.gradle.java.home` in `gradle.properties`), put
